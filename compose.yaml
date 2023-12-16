@@ -1,0 +1,23 @@
+services:
+  app:
+    image: node:18-alpine
+    command: sh -c "yarn install && yarn run dev"
+    ports:
+      - 127.0.0.1:3000:3000
+    working_dir: /hw2
+    volumes:
+      - ./:/hw2
+    environment:
+      PGHOST: postgres
+      PGUSER: postgres
+      MPGDATABASE: postgres
+
+  postgres:
+    image: postgres
+    volumes:
+      - todo-postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  todo-postgres-data:
